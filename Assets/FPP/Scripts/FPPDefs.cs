@@ -1,23 +1,15 @@
-using UnityEngine;
-
-[System.Serializable]
-public struct MovementProperties
+public enum MovingState
 {
-    public Vector2 moveVector;
-    public Vector2 lookVector;
-    public bool sprint;
-    public bool crouch;
-    public bool jump;
-    public float walkingSpeed;
-    public float runningSpeed;
-    public float jumpingStrengh;
-    public float lookingHorizontalSensivity;
-    public float lookingVerticalSensivity;
+    None,
+    Idle,
+    Walking,
+    Running,
+    CrouchingIdle,
+    CrouchingWalk,
+    Airborn,
 }
-
-[System.Serializable]
-public struct ControllerSettings
+public struct MoveInfo
 {
-    public float movingDeadZone;
-    public float lookingDeadZone;
+    public float speed;
+    public float acceleration;
 }

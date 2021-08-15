@@ -3,41 +3,44 @@ using UnityEngine.InputSystem;
 
 namespace FPP
 {
-    [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(UnityEngine.InputSystem.PlayerInput))]
     public class PlayerInputManager : MonoBehaviour
     {
-        private PlayerController playerController;
+        //Needed components
+        private FirstPersonPlayerController playerController;
       
         private void Awake()
         {
-            playerController = GetComponent<PlayerController>();
+            playerController = GetComponent<FirstPersonPlayerController>();
+            if (GetComponent<PlayerInput>().actions == null)
+            {
+                Debug.LogError("Set actions in PlayerInput");
+            }
         }
 
         public void OnMove(InputValue value)
-        {
-            Debug.Log("Move");
-            playerController.PlayerMovementProperties.moveVector = value.Get<Vector2>();
+        {   
+            playerController.MoveVector = value.Get<Vector2>();
         }
 
         public void OnLook(InputValue value)
         {        
-            playerController.PlayerMovementProperties.lookVector = value.Get<Vector2>();
+            playerController.LookVector = value.Get<Vector2>();
         }
 
         public void OnSprint(InputValue value)
         {
-            playerController.PlayerMovementProperties.sprint = value.isPressed;
+            playerController.Sprint = value.isPressed;
         }
 
         public void OnCrouch(InputValue value)
         {
-            Debug.Log("Crouch");
+            playerController.Crouch = value.isPressed;
         }
 
         public void OnJump(InputValue value)
         {   
-            playerController.PlayerMovementProperties.jump = value.isPressed;            
+            playerController.Jump = value.isPressed;            
         }
-
     }
 }
